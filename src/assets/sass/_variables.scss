@@ -1,0 +1,41 @@
+//== Color Variables
+$base: #EDB11B;
+$orange: #E57301;
+$black: #000;
+$white: #fff;
+$gray: #606060;
+$text_color: #606060;
+$border_color: #CCCCCC;
+$bg_color: #F5F5F5;
+$border: #F5F5F5;
+
+$primary-color: color("red", "lighten-2") !default;
+
+//== Typography
+@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;500;600;700;800&display=swap");
+$font1: "Roboto", sans-serif;
+$font2: "Dosis", sans-serif;
+
+
+//== Font Size Veriables
+$f1: 14px !default;
+$f2: ceil(($f1 * 1.14)) !default; // ~16px-f2
+$f3: ceil(($f1 * 1.07)) !default; // ~15px-f3
+$h1: floor(($f1 * 2.85)) !default; // ~40px-h1
+$h2: floor(($f1 * 2.57)) !default; // ~36px-h2
+$h3: ceil(($f1 * 2.14)) !default; // ~30px-h3
+$h4: ceil(($f1 * 1.71)) !default; // ~24px-h4
+$h5: ceil(($f1 * 1.42)) !default; // ~20px-h5
+$h6: ceil(($f1 * 1.28)) !default; // ~18px-h6
+
+//==  Unit-less `line-height`
+$line: 1.15 !default; // 24/14
+
+//== border-radius
+$border-radius-base: 2px !default;
+$border-radius-large: 6px !default;
+$border-radius-small: 3px !default;
+$radius-circle: 50% !default;
+
+//== transition
+$transition: all 0.4s ease-in-out;
