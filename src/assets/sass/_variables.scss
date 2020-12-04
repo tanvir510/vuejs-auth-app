@@ -4,17 +4,12 @@ $orange: #E57301;
 $black: #000;
 $white: #fff;
 $gray: #606060;
-$text_color: #606060;
-$border_color: #CCCCCC;
-$bg_color: #F5F5F5;
-$border: #F5F5F5;
+$border: #b5b5b5;
 
-$primary-color: color("red", "lighten-2") !default;
 
 //== Typography
-@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;500;600;700;800&display=swap");
-$font1: "Roboto", sans-serif;
-$font2: "Dosis", sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+$font-family: 'Montserrat', sans-serif;
 
 
 //== Font Size Veriables

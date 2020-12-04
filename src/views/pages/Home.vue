@@ -2,7 +2,14 @@
   <div class="page-wrapper todos">
     <div class="container">
         <h1 class="todos-title">User Lists</h1>
-        <AddTodo @changed="changed" />
+        <!-- <AddTodo @changed="changed" /> -->
+
+        <!-- <div class="custom-tabs">
+            <ul class="tab-area">
+                <li @click="activeTab = 1" :class="activeTab === 1 ? 'tab-list active' :'tab-list'" >Tab 1</li>
+                <li @click="activeTab = 2" :class="activeTab === 2 ? 'tab-list active' :'tab-list'" >Tab 2</li>
+            </ul>
+        </div> -->
         <div class="todos-area">
             <md-table md-card>
                 <md-table-toolbar>
@@ -46,6 +53,7 @@ export default {
         return{
             message: false,
             activePage: 1,
+            activeTab: 1,
         }
     },
     methods: {

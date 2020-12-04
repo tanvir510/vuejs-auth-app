@@ -1,3 +1,20 @@
+body {
+  margin: 0;
+  font-family: $font-family;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: $gray;
+  ul{
+    margin: 0;
+    padding: 0;
+    display: block;
+    li{
+      list-style: none;
+    }
+  }
+}
+
 .container {
   max-width: 1140px;
   padding-left: 15px;
@@ -6,6 +23,40 @@
   margin-right: auto;
 }
 
+.section-title{
+  font-size: 40px;
+  line-height: 1;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
+  @include mobile-sp() {
+      font-size: 22px;
+      margin-bottom: 20px;
+  }
+}
+
+.custom-btn{
+  outline: none;
+  border: none;
+  width: 100%;
+  padding: 16px 20px;
+  font-size: 16px;
+  font-weight: 400;
+  border-radius: 3px;
+  background: $orange;
+  color: $white;
+  cursor: pointer;
+}
+
 .text-center{
   text-align: center;
+}
+.redirect-link{
+  color: $gray;
+  font-size: 15px;
+  line-height: 23px;
+  text-align: center;
+  a{
+    color: $orange !important;
+  }
 }
