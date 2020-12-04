@@ -57,23 +57,27 @@ export default {
   },
   methods:{
     submitForm(){
+      // Check submit actionvalidation
       this.formValidation('email', !this.emailRegEx.test(this.email), 'Your email is not correct !');
       this.formValidation('password', this.password.length < 6 || this.password.length > 10 ||  this.password.length === '', this.passValidation())
       
       if(Object.keys(this.errors).every((field) => this.errors[field])){return; }
 
+      // If validation is okay submitLogin action call
       this.submitLogin({
         email: this.email,
         password: this.password
       })
     },
+    // Common form validation function
     formValidation(input, status, message){
       this.errors[input] = { status, message }
     },
+    // Mulitiple password validation
     passValidation(){
       if(!this.password){
           return 'Your password field is empty.'
-      }else if(this.password.length < 6){
+      } else if(this.password.length < 6){
         return 'Your password must be greater than 8 characters'
       }
     },

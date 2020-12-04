@@ -22,6 +22,7 @@ export default {
     },
 
     actions: {
+        // Fetch all todos
         fetchTodos({commit}){
             axios.get('https://reqres.in/api/users')
                 .then((res) => {
@@ -31,6 +32,7 @@ export default {
                     console.log(err);
                 })
         },
+        // Fetch pagination todos
         fetchPagination({commit}, payload){
             axios.get(`https://reqres.in/api/users?page=${payload}`)
                 .then((res) => {
@@ -40,6 +42,7 @@ export default {
                     console.log(err);
                 })
         },
+        // Add single todo
         addTodo({commit}, payload){
             commit('addTodos', payload)
         },

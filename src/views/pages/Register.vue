@@ -1,13 +1,7 @@
 <template>
   <div class="page-wrapper">
     <div class="page-inner">
-      <div class="info-area">
-        <div class="info-inner">
-          <h3 class="info-title">Chybuzz</h3>
-          <p class="info-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt Lorem Ipsum</p>
-          <button class="custom-btn">View More</button>
-        </div>
-      </div>
+      <Information />
       <div class="form-area">
         <h3 class="form-title">Create an account</h3>
         <form action class="submit-form">
@@ -18,6 +12,7 @@
                 placeholder="Full Name"
                 v-model="name"
             >
+            <!-- <div class="error-message">Your password must be greater than 8 characters</div> -->
           </div>
           <div class="form-group">
             <input 
@@ -46,7 +41,11 @@
 </template>
 
 <script>
+import Information from '@/components/common/Information'
 export default {
+  components: {
+    Information
+  },
   data(){
     return {
       name: '',
@@ -58,6 +57,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .page-wrapper{
     height: 100vh;
     display: flex;
@@ -73,40 +73,6 @@ export default {
         width: 100%;
         display: flex;
         flex-wrap: wrap;
-        .info-area{
-          flex: 0 0 40%;
-          max-width: 40%;
-          background: #E57301;
-          border-radius: 10px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
-          position: relative;
-          left: -80px;
-          padding: 50px 20px;
-          
-          .info-inner{
-            .info-title{
-              color: #fff;
-              font-size: 24px;
-            }
-            .info-text{
-              color: #fff;
-              line-height: 23px;
-              font-size: 15px;
-              padding: 10px 10px;
-
-            }
-            .custom-btn{
-              max-width: 150px;
-              display: inline-block;
-              padding: 10px 10px;
-              background: #fff;
-              color: #E57301;
-            }
-          }
-        }
         .form-area{
           flex: 0 0 60%;
           max-width: 60%;

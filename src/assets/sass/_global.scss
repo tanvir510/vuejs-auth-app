@@ -51,6 +51,13 @@ body {
 .text-center{
   text-align: center;
 }
+
+.error-message{
+  font-size: 12px;
+  color: red;
+  position: absolute;
+}
+
 .redirect-link{
   color: $gray;
   font-size: 15px;

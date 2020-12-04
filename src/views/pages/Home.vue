@@ -42,7 +42,7 @@
 import { mapGetters, mapActions} from 'vuex'
 import TodoList from '@/components/TodoList'
 import AddTodo from '@/components/AddTodo'
-import Pagination from '@/components/global/Pagination'
+import Pagination from '@/components/common/Pagination'
 export default {
     components:{
         TodoList,
