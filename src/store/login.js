@@ -4,11 +4,11 @@ export default {
   namespaced: true,
 
   state: {
-    token: localStorage.getItem('user_token') || '',
-    isLogedIn: false,
+    token: window.localStorage.getItem('user_token') || '',
     isSuccess: false,
     isError: false,
-    isLogout: false
+    isLogout: false,
+    isLogedIn: false,
   },
 
   getters:{
@@ -23,14 +23,11 @@ export default {
     setToken(state, status){
         state.token = status
     },
-    setLogedIn(state, status){
-      state.isLogedIn = status
-    },
     setSuccess(state, status){
       state.isSuccess = status
     },
-    setLogout(state, status){
-      state.isLogout = status
+    setLogedIn(state, status){
+      state.isLogedIn = status
     },
     setError(state, status){
       state.isError = status
@@ -38,28 +35,30 @@ export default {
   },
 
   actions: {
+    // Login Action
     submitLogin({commit}, payload){
-        commit('setLogedIn', false)
         commit('setSuccess', false)
         commit('setError', false)
         axios.post('https://reqres.in/api/login', payload)
             .then((res)=>{
                 const token = res.data.token;
                 if(token){
-                    localStorage.setItem('user_token', token)
+                    window.localStorage.setItem('user_token', token)
                 }
                 commit('setToken', token)
-                commit('setLogedIn', true)
                 commit('setSuccess', true)
             })
             .catch((err)=>{
-                commit('setLogedIn', false)
-                commit('setError', false)
+              console.log(err);
+              window.localStorage.removeItem('user_token')
+              commit('setError', false)
             })
     },
+    // Logout Action
     submitLogout({commit}){
       window.localStorage.removeItem('user_token')
-      commit('setLogout', true)
+      commit('setToken', '')
+      commit('setSuccess', false)
     }
   }
 }

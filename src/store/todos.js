@@ -26,7 +26,6 @@ export default {
             axios.get('https://reqres.in/api/users')
                 .then((res) => {
                     commit('setTodos', res.data)
-                    console.log(res);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -36,7 +35,6 @@ export default {
             axios.get(`https://reqres.in/api/users?page=${payload}`)
                 .then((res) => {
                     commit('setTodos', res.data)
-                    console.log(res);
                 })
                 .catch((err) => {
                     console.log(err);

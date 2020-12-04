@@ -36,12 +36,11 @@ export default {
     computed: {
         ...mapGetters({
             logedIn: 'login/isLogedIn',
-            isLogout: 'login/isLogout'
         })
     },
     watch:{
-        isLogout(value){
-            if(value){
+        logedIn(value){
+            if(!value){
                 this.$router.push('/login')
             }
         }
