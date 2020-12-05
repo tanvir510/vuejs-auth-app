@@ -1,42 +1,10 @@
 <template>
   <div class="page-wrapper">
-    <!-- <div class="login-page">
-      <h2 class="md-title text-center">Login Page</h2>
-      <form class="submit-form" @submit.prevent="submitForm">
-        <md-field :class="errors.email.status ? 'md-invalid' : '' ">
-          <label>E-mail</label>
-          <md-input 
-          @input="formValidation('email', false, '')"
-          @change="formValidation('email', false, '')"
-          @blur="formValidation('email', !emailRegEx.test(email), 'Your email is not correct !')"
-          v-model="email" 
-          autofocus>
-          </md-input>
-          <span class="md-error" v-if="errors.email.status">{{errors.email.message}}</span>
-        </md-field>
-
-        <md-field md-has-password :class="errors.password.status ? 'md-invalid' : '' "> 
-          <label>Password</label>
-          <md-input  
-            @input="formValidation('password', false, '')"
-            @change="formValidation('password', false, '')"
-            @blur="formValidation('password', password.length < 6 || password.length > 10 ||  password.length === '', passValidation())"
-            v-model="password"
-            type="password">
-          </md-input>
-          <span class="md-error" v-if="errors.password.status">{{errors.password.message}}</span>
-        </md-field>
-        <div class="actions md-layout md-alignment-center-space-between">
-          <div class="md-body-1">Have'nt account ? <router-link to="/register">Register</router-link></div>
-          <md-button type="submit" class="md-raised md-primary">Login</md-button>
-        </div>
-      </form>
-    </div> -->
-
     <div class="page-inner">
       <Information />
       <div class="form-area">
         <h3 class="form-title">Login your account</h3>
+        <!-- Login form start from here -->
         <form action class="submit-form" @submit.prevent="submitForm">
           <div class="form-group">
             <input 
@@ -57,7 +25,7 @@
               :class="errors.password.status ? 'is-invalid form-control' : 'form-control' "
               @input="formValidation('email', false, '')"
               @change="formValidation('email', false, '')"
-              @blur="formValidation('password', password.length < 6 || password.length > 10 ||  password.length === '', passValidation())"
+              @blur="formValidation('password', !password || password.length < 6 || password.length > 10, passValidation())"
               v-model="password" 
             >
             <div class="error-message" v-if="errors.password.status">{{errors.password.message}}</div>
@@ -66,6 +34,7 @@
             <button class="custom-btn" type="submit">Login</button>
           </div>
         </form>
+        <!-- Login form end from here -->
         <div class="redirect-link">You don't have account ? <router-link to="/register">Register</router-link> here</div>
       </div>
     </div>
@@ -75,7 +44,9 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import Information from '@/components/common/Information'
+import { formValidation } from '../../mixins/validation'
 export default {
+  mixins: [ formValidation ],
   components: {
     Information
   },
@@ -83,17 +54,6 @@ export default {
     return{
       email: '', // eve.holt@reqres.in
       password: '', // cityslicka
-      emailRegEx: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
-      errors: {
-        email: {
-          status: false,
-          message: ''
-        },
-        password: {
-          status: false,
-          message: ''
-        }
-      }
     }
   },
   methods:{
@@ -109,18 +69,6 @@ export default {
         email: this.email,
         password: this.password
       })
-    },
-    // Common form validation function
-    formValidation(input, status, message){
-      this.errors[input] = { status, message }
-    },
-    // Mulitiple password validation
-    passValidation(){
-      if(!this.password){
-          return 'Your password field is empty.'
-      } else if(this.password.length < 6){
-        return 'Your password must be greater than 8 characters'
-      }
     },
     ...mapActions({
       submitLogin: 'login/submitLogin'

@@ -79,6 +79,13 @@ export default {
             font-weight: 400;
             font-size: 16px;
             text-decoration: none;
+            transition: all ease-in-out .4s;
+            &:hover{
+                color: #E57301;
+            }
+            &.router-link-exact-active{
+                color: #E57301;
+            }
             &.logout{
                 cursor: pointer;
             }

@@ -1,20 +1,17 @@
 <template>
   <div class="page-wrapper todos">
     <div class="container">
-        <h1 class="todos-title">User Lists</h1>
-        <!-- <AddTodo @changed="changed" /> -->
-
-        <!-- <div class="custom-tabs">
-            <ul class="tab-area">
-                <li @click="activeTab = 1" :class="activeTab === 1 ? 'tab-list active' :'tab-list'" >Tab 1</li>
-                <li @click="activeTab = 2" :class="activeTab === 2 ? 'tab-list active' :'tab-list'" >Tab 2</li>
-            </ul>
-        </div> -->
+        <div class="todos-header">
+            <div class="todos-title">User Lists</div>
+            <div class="custom-tabs">
+                <ul class="tab-area">
+                    <li @click="activeTab = 1" :class="activeTab === 1 ? 'tab-list active' :'tab-list'" ><span class="material-icons">format_list_bulleted</span></li>
+                    <li @click="activeTab = 2" :class="activeTab === 2 ? 'tab-list active' :'tab-list'" ><span class="material-icons">apps</span></li>
+                </ul>
+            </div>
+        </div>
         <div class="todos-area">
-            <md-table md-card>
-                <md-table-toolbar>
-                    <h1 class="md-title">Todo Information: </h1>
-                </md-table-toolbar>
+            <md-table md-card v-if="activeTab === 1">
                 <md-table-row>
                     <md-table-head md-numeric>ID</md-table-head>
                     <md-table-head>First Name</md-table-head>
@@ -23,6 +20,10 @@
                 </md-table-row>
                 <TodoList v-for="todo in items.data" :key="todo.id" :todo="todo" />
             </md-table>
+
+            <div class="grid-view" v-if="activeTab === 2">
+                <TodoGrid v-for="todo in items.data" :key="todo.id" :todo="todo"/>
+            </div>
             
             <!-- Global Pagination Component -->
             <div class="pagination-area">
@@ -43,11 +44,13 @@ import { mapGetters, mapActions} from 'vuex'
 import TodoList from '@/components/TodoList'
 import AddTodo from '@/components/AddTodo'
 import Pagination from '@/components/common/Pagination'
+import TodoGrid from '@/components/TodoGrid'
 export default {
     components:{
         TodoList,
+        TodoGrid,
         AddTodo,
-        Pagination
+        Pagination,
     },
     data(){
         return{
@@ -77,9 +80,6 @@ export default {
         ...mapGetters({
             items: 'todos/getTodos',
         })
-    },
-    watch:{
-
     }
 }
 </script>
@@ -88,9 +88,37 @@ export default {
 .todos-title{
     margin-bottom: 30px;
     margin-top: 30px;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 30px;
 }
 .pagination-area{
     max-width: 70%;
     margin: 0 auto;
+}
+.todos-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.grid-view{
+    display: flex;
+    flex-wrap: wrap;
+}
+.tab-area{
+    display: flex;
+    align-items: center;
+    .tab-list{
+        margin-left: 10px;
+        &.active{
+            .material-icons{
+                color: #E57301;
+            }
+        }
+        .material-icons{
+            font-size: 25px;
+            cursor: pointer;
+        }
+    }
 }
 </style>

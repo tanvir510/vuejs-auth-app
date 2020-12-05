@@ -2,33 +2,44 @@
   <div class="page-wrapper">
     <div class="page-inner">
       <Information />
-      <div class="form-area">
+      <div class="form-area" @submit.prevent="submitRegisterForm">
         <h3 class="form-title">Create an account</h3>
         <form action class="submit-form">
           <div class="form-group">
             <input 
                 type="text" 
-                class="form-control" 
+                :class="errors.username.status ? 'is-invalid form-control' : 'form-control' "
                 placeholder="Full Name"
-                v-model="name"
+                v-model="username"
+                @change="formValidation('username', false, '')"
+                @input="formValidation('username', false, '')"
+                @blur="formValidation('username', !username, 'Your name field is empty.')"
             >
-            <!-- <div class="error-message">Your password must be greater than 8 characters</div> -->
+            <div class="error-message" v-if="errors.username.status">{{errors.username.message}}</div>
           </div>
           <div class="form-group">
             <input 
-                type="email" 
-                class="form-control" 
-                placeholder="Email Address"
-                v-model="email"
+              type="email"
+              placeholder="Enter email"
+              :class="errors.email.status ? 'is-invalid form-control' : 'form-control' "
+              @input="formValidation('email', false, '')"
+              @change="formValidation('email', false, '')"
+              @blur="formValidation('email', !emailRegEx.test(email), 'Your email is not correct !')"
+              v-model="email" 
             >
+            <div class="error-message" v-if="errors.email.status">{{errors.email.message}}</div>
           </div>
           <div class="form-group">
             <input 
-                type="password" 
-                class="form-control" 
-                placeholder="Enter Password"
-                v-model="password"
+              type="password"
+              placeholder="Enter password"
+              :class="errors.password.status ? 'is-invalid form-control' : 'form-control' "
+              @input="formValidation('email', false, '')"
+              @change="formValidation('email', false, '')"
+              @blur="formValidation('password', !password || password.length < 6 || password.length > 10, passValidation())"
+              v-model="password" 
             >
+            <div class="error-message" v-if="errors.password.status">{{errors.password.message}}</div>
           </div>
           <div class="form-group">
             <button class="custom-btn" type="submit">Register</button>
@@ -41,16 +52,52 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 import Information from '@/components/common/Information'
+import { formValidation } from '../../mixins/validation'
 export default {
+  mixins: [ formValidation ],
   components: {
     Information
   },
   data(){
     return {
-      name: '',
-      email: '',
-      password: ''
+      username: '', // Tanvir (Anyname)
+      email: '', // eve.holt@reqres.in
+      password: '' // pistol
+    }
+  },
+  methods: {
+    submitRegisterForm() {
+      // Check submit actionvalidation
+      this.formValidation('username', !this.username, 'Your name field is empty.');
+      this.formValidation('email', !this.emailRegEx.test(this.email), 'Your email is not correct !');
+      this.formValidation('password', this.password.length < 6 || this.password.length > 10 ||  this.password.length === '', this.passValidation())
+      
+      if(Object.keys(this.errors).every((field) => this.errors[field] === true )){ return; }
+
+      this.submitRegister({
+        name: this.username,
+        email: this.email,
+        password: this.password
+      })
+    },
+    ...mapActions({
+      submitRegister: 'register/submitRegister'
+    })
+  },
+  computed: {
+    ...mapGetters({
+      isSuccess: 'register/isSuccess'
+    })
+  },
+  watch: {
+    isSuccess(value){
+      if(value){
+        this.username = '';
+        this.email = '';
+        this.password = '';
+      }
     }
   }
 }
