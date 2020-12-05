@@ -57,13 +57,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .page-wrapper{
-    height: 100vh;
+    height: calc(100vh - 72px);
     display: flex;
     justify-content: center;
     align-items: center;
     background: #f5f5f5;
+
     .page-inner{
         max-width: 700px;
         border-radius: 10px;
@@ -73,9 +73,11 @@ export default {
         width: 100%;
         display: flex;
         flex-wrap: wrap;
+
         .form-area{
           flex: 0 0 60%;
           max-width: 60%;
+
           .form-title{
             font-size: 24px;
             font-weight: 400;
@@ -86,5 +88,4 @@ export default {
         }
     }
 }
-
 </style>
